@@ -46,6 +46,7 @@ services:
   logspout:
     build:
       context: ./extensions/logspout
+    image: "424385760710.dkr.ecr.us-east-2.amazonaws.com/vergeman/logspout"
     depends_on:
       - logstash
     environment:
