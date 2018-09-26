@@ -7,6 +7,10 @@ services:
     ports:
       - "9200:9200"
       - "9300:9300"
+    volumes:
+      - type: bind
+        source: /mnt/instance/elastic/data
+        target: /usr/share/elasticsearch/data
     configs:
       - source: elastic_config
         target: /usr/share/elasticsearch/config/elasticsearch.yml
