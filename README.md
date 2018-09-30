@@ -1,3 +1,38 @@
+# Updated ELK Docker
+
+/deploy (this) branch already has configs set for logspout
+(e.g. logstash listening on udp/tcp)
+
+In prod, this repo gets cloned and branch to deploy uses the
+'stack.yml' convention when added to the swarm via ansible:
+
+```bash
+docker stack deploy -c stack.yml docker-elk
+```
+
+Building and pushing any updates also reference _stack.yml_, but there
+shouldn't be additional configuration changes to the images aside from
+logspout being build as packaged.
+
+NB: on push need to add env credentials to amazon ecr
+``` bash
+docker-compose -f stack.yml build
+docker-compose -f stack.yml push
+```
+
+Local: run docker-compose up with extension as indicated in readme; it
+sniffs the local docker socket so no additional network config should
+be necessary.
+
+NB: logspout will fail several times initially, as it depends on
+logstash which takes a while to load.
+
+```bash
+docker-compose -f docker-compose.yml -f extensions/logspout/logspout-compose.yml up
+```
+
+
+
 # Elastic stack (ELK) on Docker
 
 [![Join the chat at https://gitter.im/deviantony/docker-elk](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/deviantony/docker-elk?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
